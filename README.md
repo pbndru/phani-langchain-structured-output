@@ -112,3 +112,25 @@ The key to modern IPAs is often **Hop Variety**. Don't just use one type of hop;
 
 Let me know what kind of flavor profile you are aiming for (Citrusy, Piney, Tropical, Earthy), and I can help you refine this layout!
 ====================================================
+
+# Planned and Delegation
+Complex tasks often exceed what one context window can handle. Delegation lets the main agent break work into pieces, hand them to subagents that each run in their own isolated context, and stay focused on coordination rather than execution. Work can run in parallel; the main agent’s context stays clean.
+# Run -> uv run .\planned-and-delegation.py
+# Output: 
+[PARENT PROCESSOR LOG] Raw string received:
+```json
+{
+  "name": "delegate_to_researcher",
+  "arguments": {
+    "research_topic": "history_of_craft_stout_brewing_techniques"
+  }
+}
+```
+
+[MANAGER ACTION] Activating 'researcher' sub-agent pipeline.
+
+[SUB-AGENT SEARCH LOG] Executing database lookup for query: 'history of craft stout brewing techniques'
+
+================ FINAL ARCHITECT SUMMARY OUTPUT ================
+Craft stout techniques historically rely on roasted barley for a distinctive dark profile, developed in the early 18th century London markets.
+================================================================

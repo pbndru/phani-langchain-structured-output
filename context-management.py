@@ -1,8 +1,12 @@
 import os
+from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain_openai import ChatOpenAI
 from deepagents.backends import StateBackend
 from deepagents.middleware import FilesystemMiddleware, MemoryMiddleware, SkillsMiddleware, SummarizationMiddleware
+
+# Load configurations from the .env file
+load_dotenv()
 
 # --- 1. Tool Setup (Your sandbox data source) ---
 def search(query: str) -> str:

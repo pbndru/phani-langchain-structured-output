@@ -134,3 +134,27 @@ Complex tasks often exceed what one context window can handle. Delegation lets t
 ================ FINAL ARCHITECT SUMMARY OUTPUT ================
 Craft stout techniques historically rely on roasted barley for a distinctive dark profile, developed in the early 18th century London markets.
 ================================================================
+
+# Fault Tolerance
+Agents in production encounter failures that rarely appear in development: rate limits, model timeouts, transient API errors. Fault tolerance middleware handles these at the infrastructure level so your tools and business logic don’t need try/catch around every call.
+# Run -> uv run .\fault-tolerance.py 
+# Output: 
+
+[PARENT PROCESSOR LOG] Raw string received:
+```json
+{
+  "name": "search",
+  "arguments": {
+    "query": "stout techniques"
+  }
+}
+```
+
+[TOOL ATTEMPT 1] Running archive lookup for: 'stout techniques'
+-> [FAULT DETECTED] Simulating an internal database timeout!
+-> [RETRY MIDDLEWARE] Caught error: 'Database connection timed out. System retry required.'. Attempting retry 1/2...
+
+[TOOL ATTEMPT 2] Running archive lookup for: 'stout techniques'
+
+================ FINAL ARCHITECT RESILIENT OUTPUT ================
+Stout brewing involves roasting 10% of the barley to achieve its distinctive flavor profile.

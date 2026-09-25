@@ -158,3 +158,102 @@ Agents in production encounter failures that rarely appear in development: rate 
 
 ================ FINAL ARCHITECT RESILIENT OUTPUT ================
 Stout brewing involves roasting 10% of the barley to achieve its distinctive flavor profile.
+
+
+# Guardgrails
+
+Some policies can’t live in a prompt—they need to be enforced deterministically regardless of what the model does. Guardrails intercept data as it flows through the agent loop, applying compliance rules or content policies before tool results reach the model’s context.
+
+# Run -> uv run .\guardrails.py
+# Output:
+
+[GUARDRAIL ALARM] PII Middleware triggered! Email footprint detected.
+-> [REDACTION COMPLETE] Safe text generated: 'Search the archive for stout techniques. If you need help, email me at [REDACTED_EMAIL].'
+
+[PARENT PROCESSOR LOG] Raw string received:
+```json
+{
+  "name": "search",
+  "arguments": {
+    "query": "stout techniques"
+  }
+}
+```
+
+[SUB-AGENT ARCHIVE] Running deep database search for: 'stout techniques'
+
+[GUARDRAIL ALARM] PII Middleware triggered! Email footprint detected.
+-> [REDACTION COMPLETE] Safe text generated: '**Stout Techniques Summary**
+
+**Search Results**: Found 1 result related to "stout techniques" in our database.
+
+**Archive Admin Contact**: The archive administrator's contact information is [REDACTED_EMAIL].
+
+**Summary of Stout Techniques**:
+- Stout techniques are a type of brewing method that produces dark, rich beers with complex flavors.
+- Common methods include using roasted barley, adding hops for bitterness and aroma, and fermenting at high temperatures to achieve a robust flavor profile.
+- Stouts can be served cold or warm, depending on the desired strength and style.
+
+**Additional Information**:
+- Stout techniques are often used in traditional British brewing traditions.
+- The process involves selecting specific grains, brewing methods, and fermentation conditions to create unique flavors and aromas.
+- Stouts are known for their ability to develop complex flavors and aromas over time, making them a popular choice for craft beer enthusiasts.'
+
+================ FINAL ARCHITECT SANITIZED OUTPUT ================
+**Stout Techniques Summary**
+
+**Search Results**: Found 1 result related to "stout techniques" in our database.
+
+**Archive Admin Contact**: The archive administrator's contact information is [REDACTED_EMAIL].
+
+**Summary of Stout Techniques**:
+- Stout techniques are a type of brewing method that produces dark, rich beers with complex flavors.
+- Common methods include using roasted barley, adding hops for bitterness and aroma, and fermenting at high temperatures to achieve a robust flavor profile.
+- Stouts can be served cold or warm, depending on the desired strength and style.
+
+**Additional Information**:
+- Stout techniques are often used in traditional British brewing traditions.
+- The process involves selecting specific grains, brewing methods, and fermentation conditions to create unique flavors and aromas.
+- Stouts are known for their ability to develop complex flavors and aromas over time, making them a popular choice for craft beer enthusiasts.
+==================================================================
+
+
+# Steering
+
+Some policies can’t live in a prompt—they need to be enforced deterministically regardless of what the model does. Guardrails intercept data as it flows through the agent loop, applying compliance rules or content policies before tool results reach the model’s context.
+
+# Run -> uv run .\steering.py
+# Output:
+
+[PARENT PROCESSOR LOG] Raw string received:
+```json
+{
+  "name": "search",
+  "arguments": {
+    "query": "stout techniques"
+  }
+}
+```
+
+[INTERRUPT DETECTED] Human-in-the-loop steering gate triggered!
+-> Agent wants to execute tool: 'search'
+-> Proposed Arguments: {
+  "query": "stout techniques"
+}
+
+[STEERING CONSOLE] Approve action? (y = Yes, n = Abort, c = Change parameters): c
+
+--- Enter New Parameter Overrides ---
+Modify search query parameter: search
+-> [STEERED] Changing tool execution variables to: {'query': 'search'}
+
+[SUB-AGENT ARCHIVE] Running deep database search for: 'search'
+
+================ FINAL ARCHITECT OUTPUT ================
+**Summary Layout**
+
+1. **Search Results**: The user has searched for "search" in the database.
+2. **Stout Records Not Found**: No stout records were found in the database that match the search query.
+
+This summary provides a clear and concise overview of the user's request and the current state of the database, highlighting the absence of relevant information.
+==================================================================

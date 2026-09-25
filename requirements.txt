@@ -1,3 +1,6 @@
 langchain>=0.3.0
 langchain-core>=0.3.0
 langchain-openai>=0.3.9
+
+# Core Agent Harness & Runtime
+deepagents

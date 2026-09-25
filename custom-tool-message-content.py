@@ -1,6 +1,7 @@
+import os
+
 from pydantic import BaseModel, Field
 from typing import Literal
-import os
 from langchain.agents import create_agent
 from langchain_openai import ChatOpenAI
 from langchain.agents.structured_output import ToolStrategy

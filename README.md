@@ -257,3 +257,23 @@ Modify search query parameter: search
 
 This summary provides a clear and concise overview of the user's request and the current state of the database, highlighting the absence of relevant information.
 ==================================================================
+
+
+# Tool calling
+
+Models can request to call tools that perform tasks such as fetching data from a database, searching the web, or running code.
+
+# Run -> uv run .\tool-calling.py
+# Output:
+
+User Prompt: 'What's the weather like in Boston?'
+Sending request to local LLM...
+
+--- Execution Results ---
+Success! The model decided to call 1 tool(s).
+
+Tool Name: get_weather
+Arguments: {'location': 'Boston'}
+Tool Call ID: NpmB4iMlx8e9f42foRgzkdlSLqagct89
+
+
